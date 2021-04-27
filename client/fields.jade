@@ -644,6 +644,21 @@ template(name='child_view')
     
         //     +single_doc_edit key='ref_model' ref_model='model' ref_key='slug' label='Referenced model (if ref)'
         //     .ui.divider
+template(name='kve')
+    //- div
+    .ui.button.set_value(class="#{kve_class} #{cl}" title=tooltip)
+        //- .ui.compact.button.toggle_boolean(class=boolean_toggle_class)
+        if icon
+            +icon name=icon cl='ui avatar image'
+        .inline.f12
+            //- if field_value
+            //-     i.checkmark.icon
+            if label
+                |#{label}
+            else if key
+                |#{key}
+
+
 template(name='boolean_edit')
     //- div
     .ui.button.toggle_boolean(class="#{boolean_toggle_class} #{cl}" title=tooltip)

@@ -389,6 +389,28 @@ Template.slug_edit.events
             Docs.update page_doc._id,
                 $set:slug:res
 
+Template.kve.helpers
+    kve_class: ->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        if parent["#{@key}"] is @value then 'active' else 'basic'
+
+
+Template.kve.events
+    'click .set_value': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        # $(e.currentTarget).closest('.button').transition('pulse', 100)
+
+        doc = Docs.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":@value
+
 
 Template.boolean_edit.helpers
     boolean_toggle_class: ->

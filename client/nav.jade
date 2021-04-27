@@ -5,7 +5,8 @@ template(name='nav')
                 i.big.spinning.grey.yin.yang.icon.cancel
         else 
             a.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
-                +i name='home' cl='ui inline mini image'
+                // +i name='home' cl='ui inline mini image'
+                img.ui.avatar.image(src="https://www.lefrenchcafeboulder.com/images/logo.svg")
             //- if is_admin
                 //- .mobile.hidden
                 //-     |&nbsp;

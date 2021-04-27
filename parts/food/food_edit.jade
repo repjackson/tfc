@@ -7,12 +7,14 @@ template(name='food_edit')
                     .ui.header
                         small editing
                         | #{title}
-                        small food
+                        small menu item
                 .four.wide.center.aligned.column
                     .ui.large.circular.icon.green.button.save_food(title='save food')
                         i.checkmark.large.icon   
             .five.wide.column
                 +text_edit key='title' label='title' direct=true
+                +kve key='menu_section' value='appetizers' label='appetizers' direct=true
+                +kve key='menu_section' value='dessert' label='dessert' direct=true
                 +image_edit key='image_id' label='image' direct=true
                 +number_edit key='servings_amount' label='servings available' direct=true
                 +text_edit key='serving_unit' label='serving unit' direct=true
