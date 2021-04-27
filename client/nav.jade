@@ -7,50 +7,19 @@ template(name='nav')
             a.item.zoomer(href='/' class="{{isActivePath '/'}}" title='food')
                 // +i name='home' cl='ui inline mini image'
                 img.ui.avatar.image(src="https://www.lefrenchcafeboulder.com/images/logo.svg")
-            //- if is_admin
-                //- .mobile.hidden
-                //-     |&nbsp;
-                //-     | home
+                .mobile.hidden
+                    |&nbsp;
+                    | Le French Cafe
             a.item.zoomer(href='/food' class="{{isActivePath '/food'}}" title='food')
                 +i name='food' cl='ui inline mini image'
                 .mobile.hidden
                     |&nbsp;
                     | food
-            a.item.zoomer(href='/cart' class="{{isActivePath '/food'}}" title='food')
+            a.item.zoomer(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
                 +i name='shopping-cart' cl='ui inline mini image'
                 .mobile.hidden
                     |&nbsp;
                     | cart
-            // a.item.zoomer(href='/products' class="{{isActivePath '/products'}}" title='shop')
-            //     +i name='shop' cl='ui inline mini image'
-            //     .mobile.hidden
-            //         |&nbsp;
-            //         | shop
-            // a.item.zoomer(href='/services' class="{{isActivePath '/services'}}" title='services')
-            //     +i name='wrench' cl='ui inline mini image'
-            //     .mobile.hidden
-            //         |&nbsp;
-                    | services
-            // a.item.zoomer(href='/rentals' class="{{isActivePath '/rentals'}}")
-            //     +i name='clock' cl='ui inline mini image'
-            //     .mobile.hidden
-            //         |&nbsp;
-            //         | rentals
-            // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            //     +i name='group' cl='ui inline mini image'
-            //     .mobile.hidden
-            //         |&nbsp;
-            //         | groups
-            //- a.item(href='/events' class="{{isActivePath '/events'}}")
-            //-     +i name='calendar' cl='ui inline mini image'
-            //-     .mobile.hidden
-            //-         |&nbsp;
-            //-         | events
-            //- a.item(href='/users' class="{{isActivePath '/users'}}" title='users')
-            //-     +i name='groups' cl='ui inline mini image'
-            //-     .mobile.hidden
-            //-         |&nbsp;
-            //-         | users
         .right.menu
             if is_admin
                 a.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
@@ -69,15 +38,13 @@ template(name='nav')
                         i.user.icon
                     span.mobile.hidden #{currentUser.name}
                         //- |${{int currentUser.credit}}
-                //- else
-                //-     a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
-                //-         i.sign.out.icon
-            else
-                unless currentUser
-                    a.item(href='/login' title='enter') 
-                        //- i.sign.in.icon
-                        +i name='internal'
-                        //- |login
+                a#logout.ui.mobile.hidden.icon.item(href='#' title='log out')
+                    i.sign.out.icon
+            unless currentUser
+                a.item(href='/login' title='enter') 
+                    //- i.sign.in.icon
+                    +i name='internal'
+                    //- |login
 
 
 

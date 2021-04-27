@@ -1,6 +1,6 @@
 template(name='food')
     .ui.stackable.padded.grid
-        .four.wide.column
+        .sixteen.wide.column
             if currentUser
                 a.ui.icon.basic.circular.button.add_food(title='cook')
                     i.plus.green.large.icon
@@ -51,7 +51,7 @@ template(name='food')
                 .ui.compact.button.select_tag(class=cloud_tag_class) 
                     strong #{this.name}
             
-        .twelve.wide.column
+        .sixteen.wide.column
             //- .sorting_row
             //-     .ui.icon.input
             //-         i.search.icon
