@@ -16,26 +16,31 @@ template(name='nav')
                 .mobile.hidden
                     |&nbsp;
                     | food
-            a.item.zoomer(href='/products' class="{{isActivePath '/products'}}" title='shop')
-                +i name='shop' cl='ui inline mini image'
+            a.item.zoomer(href='/cart' class="{{isActivePath '/food'}}" title='food')
+                +i name='shopping-cart' cl='ui inline mini image'
                 .mobile.hidden
                     |&nbsp;
-                    | shop
-            a.item.zoomer(href='/services' class="{{isActivePath '/services'}}" title='services')
-                +i name='wrench' cl='ui inline mini image'
-                .mobile.hidden
-                    |&nbsp;
+                    | cart
+            // a.item.zoomer(href='/products' class="{{isActivePath '/products'}}" title='shop')
+            //     +i name='shop' cl='ui inline mini image'
+            //     .mobile.hidden
+            //         |&nbsp;
+            //         | shop
+            // a.item.zoomer(href='/services' class="{{isActivePath '/services'}}" title='services')
+            //     +i name='wrench' cl='ui inline mini image'
+            //     .mobile.hidden
+            //         |&nbsp;
                     | services
-            a.item.zoomer(href='/rentals' class="{{isActivePath '/rentals'}}")
-                +i name='clock' cl='ui inline mini image'
-                .mobile.hidden
-                    |&nbsp;
-                    | rentals
-            a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-                +i name='group' cl='ui inline mini image'
-                .mobile.hidden
-                    |&nbsp;
-                    | groups
+            // a.item.zoomer(href='/rentals' class="{{isActivePath '/rentals'}}")
+            //     +i name='clock' cl='ui inline mini image'
+            //     .mobile.hidden
+            //         |&nbsp;
+            //         | rentals
+            // a.item.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+            //     +i name='group' cl='ui inline mini image'
+            //     .mobile.hidden
+            //         |&nbsp;
+            //         | groups
             //- a.item(href='/events' class="{{isActivePath '/events'}}")
             //-     +i name='calendar' cl='ui inline mini image'
             //-     .mobile.hidden
@@ -56,7 +61,7 @@ template(name='nav')
                 //- a.icon.item(href="/alerts" class="{{isActivePath '/alerts'}}")
                 //-     i.bell.icon
                 a.item(href="/user/#{currentUser.username}/credit" class="{{isActiveRoute regex='user_credit'}}" title='your credits')
-                    .ui.inline.header #{currentUser.credit}c
+                    .ui.inline.header #{currentUser.credit}f
                 a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=100 height=100 gravity='face' crop='fill'}}")
