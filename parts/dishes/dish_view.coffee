@@ -1,27 +1,27 @@
 if Meteor.isClient
-    Router.route '/food/:doc_id', (->
+    Router.route '/dish/:doc_id', (->
         @layout 'layout'
-        @render 'food_view'
-        ), name:'food_view'
+        @render 'dish_view'
+        ), name:'dish_view'
 
 
-    Template.food_view.onCreated ->
+    Template.dish_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'dish_from_food_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'orders_from_food_id', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'ingredients_from_food_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'dish_from_dish_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'orders_from_dish_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'ingredients_from_dish_id', Router.current().params.doc_id
 
 
-    Template.food_view.events
+    Template.dish_view.events
         'click .mark_ready': ->
-            if confirm 'mark food ready?'
+            if confirm 'mark dish ready?'
                 Docs.update Router.current().params.doc_id,
                     $set:
                         ready:true
                         ready_timestamp:Date.now()
 
         'click .unmark_ready': ->
-            if confirm 'unmark food ready?'
+            if confirm 'unmark dish ready?'
                 Docs.update Router.current().params.doc_id,
                     $set:
                         ready:false
@@ -37,31 +37,31 @@ if Meteor.isClient
                 cancelButtonText: 'cancel'
             }).then((result) =>
                 if result.value
-                    food = Docs.findOne Router.current().params.doc_id
+                    dish = Docs.findOne Router.current().params.doc_id
                     Meteor.users.update Meteor.userId(),
                         $inc:credit:@order_price
-                    Meteor.users.update food.cook_user_id,
+                    Meteor.users.update dish.cook_user_id,
                         $inc:credit:@order_price
                     Swal.fire(
                         'refund processed',
                         ''
                         'success'
-                    Meteor.call 'calc_food_data', food._id
+                    Meteor.call 'calc_dish_data', dish._id
                     Docs.remove @_id
                     )
             )
 
 
-    Template.food_view.helpers
+    Template.dish_view.helpers
         can_cancel: ->
-            food = Docs.findOne Router.current().params.doc_id
-            if Meteor.userId() is food._author_id
-                if food.ready
+            dish = Docs.findOne Router.current().params.doc_id
+            if Meteor.userId() is dish._author_id
+                if dish.ready
                     false
                 else
                     true
             else if Meteor.userId() is @_author_id
-                if food.ready
+                if dish.ready
                     false
                 else
                     true
@@ -73,7 +73,7 @@ if Meteor.isClient
             else
                 @cook_user_id isnt Meteor.userId()
 
-        food_order_class: ->
+        dish_order_class: ->
             if @waitlist then 'blue' else 'green'
 
     Template.order_button.onCreated ->
@@ -94,7 +94,7 @@ if Meteor.isClient
         #             Docs.insert
         #                 model:'order'
         #                 waitlist:true
-        #                 food_id: Router.current().params.doc_id
+        #                 dish_id: Router.current().params.doc_id
         #             Swal.fire(
         #                 'wait list joined',
         #                 "you'll be alerted if accepted"
@@ -102,7 +102,7 @@ if Meteor.isClient
         #             )
         #     )
 
-        'click .order_food': ->
+        'click .order_dish': ->
             # if Meteor.user().credit >= @price_per_serving
             Docs.insert
                 model:'order'
@@ -123,7 +123,7 @@ if Meteor.isClient
                 cancelButtonText: 'cancel'
             }).then((result) =>
                 if result.value
-                    Meteor.call 'order_food', @_id, (err, res)->
+                    Meteor.call 'order_dish', @_id, (err, res)->
                         if err
                             Swal.fire(
                                 'err'
@@ -139,8 +139,8 @@ if Meteor.isClient
         )
 
 if Meteor.isServer
-    Meteor.publish 'orders_from_food_id', (food_id)->
-        # food = Docs.findOne food_id
+    Meteor.publish 'orders_from_dish_id', (dish_id)->
+        # dish = Docs.findOne dish_id
         Docs.find
             model:'order'
-            food_id:food_id
+            dish_id:dish_id

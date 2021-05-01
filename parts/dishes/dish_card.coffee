@@ -1,7 +1,7 @@
 if Meteor.isClient
-    Template.food_card.onCreated ->
+    Template.dish_card.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'food'
-    Template.food_card.events
+    Template.dish_card.events
         'click .quickbuy': ->
             console.log @
             Session.set('quickbuying_id', @_id)
@@ -25,8 +25,8 @@ if Meteor.isClient
         # 'click .view_card': ->
         #     $('.container_')
 
-    Template.food_card.helpers
-        food_card_class: ->
+    Template.dish_card.helpers
+        dish_card_class: ->
             # if Session.get('quickbuying_id')
             #     if Session.equals('quickbuying_id', @_id)
             #         'raised'

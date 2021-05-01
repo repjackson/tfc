@@ -10,7 +10,8 @@ template(name='delta_result_card')
                             +i name=color_icon
                             |#{title}
                     else 
-                        each visible_fields
+                        // each visible_fields
+                        each fields
                             +Template.dynamic template=view_template
                             div
                     .extra

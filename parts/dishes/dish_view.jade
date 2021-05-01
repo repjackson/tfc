@@ -1,4 +1,4 @@
-template(name='food_view')
+template(name='dish_view')
     with current_doc
         .ui.stackable.padded.grid
             .two.column.row
@@ -6,9 +6,9 @@ template(name='food_view')
                     .ui.large.header 
                         //- small viewing
                         h1 #{title}
-                        //- small food
+                        //- small dish
                     if can_edit
-                        a.ui.large.circular.icon.button(href="/food/#{_id}/edit")
+                        a.ui.large.circular.icon.button(href="/dish/#{_id}/edit")
                             i.pencil.blue.large.icon
                     img.ui.fluid.rounded.image(src="{{c.url image_id width=400 height=400}}")
                     div
@@ -33,8 +33,8 @@ template(name='food_view')
                     .ui.header 
                         +i name='order-history'
                         |orders
-                    each food_orders
-                        .ui.segment(class=food_order_class)
+                    each dish_orders
+                        .ui.segment(class=dish_order_class)
                             .ui.inline.green.header
                                 |$#{order_price}
                                 if _author.image_id
@@ -58,7 +58,7 @@ template(name='food_view')
 template(name='order_button')
     if open
         if servings_left
-            .ui.green.fluid.large.circular.button.order_food
+            .ui.green.fluid.large.circular.button.order_dish
                 i.cart.plus.large.icon
                 // |order #{serving_unit}
                 |order

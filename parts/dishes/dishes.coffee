@@ -1,43 +1,43 @@
 if Meteor.isClient
-    Router.route '/food', (->
+    Router.route '/dishes', (->
         @layout 'layout'
-        @render 'food'
-        ), name:'food'
+        @render 'dishes'
+        ), name:'dishes'
 
 
-    Template.food.onCreated ->
+    Template.dishes.onCreated ->
         Session.setDefault 'view_mode', 'list'
-        Session.setDefault 'food_sort_key', 'datetime_available'
-        Session.setDefault 'food_sort_label', 'available'
-        Session.setDefault 'food_limit', 5
+        Session.setDefault 'dish_sort_key', 'datetime_available'
+        Session.setDefault 'dish_sort_label', 'available'
+        Session.setDefault 'dish_limit', 5
         Session.setDefault 'view_open', true
 
-    Template.food.onCreated ->
-        @autorun => @subscribe 'food_facets',
+    Template.dishes.onCreated ->
+        @autorun => @subscribe 'dish_facets',
             selected_ingredients.array()
-            Session.get('food_limit')
-            Session.get('food_sort_key')
-            Session.get('food_sort_direction')
+            Session.get('dish_limit')
+            Session.get('dish_sort_key')
+            Session.get('dish_sort_direction')
             Session.get('view_delivery')
             Session.get('view_pickup')
             Session.get('view_open')
 
-        @autorun => @subscribe 'food_results',
+        @autorun => @subscribe 'dish_results',
             selected_ingredients.array()
-            Session.get('food_limit')
-            Session.get('food_sort_key')
-            Session.get('food_sort_direction')
+            Session.get('dish_limit')
+            Session.get('dish_sort_key')
+            Session.get('dish_sort_direction')
             Session.get('view_delivery')
             Session.get('view_pickup')
             Session.get('view_open')
 
 
-    Template.food.events
-        'click .add_food': ->
+    Template.dishes.events
+        'click .add_dish': ->
             new_id =
                 Docs.insert
                     model:'menu_item'
-            Router.go("/food/#{new_id}/edit")
+            Router.go("/dish/#{new_id}/edit")
 
 
         'click .toggle_delivery': -> Session.set('view_delivery', !Session.get('view_delivery'))
@@ -77,8 +77,8 @@ if Meteor.isClient
                     # , 10000
         , 1000)
 
-        'click .calc_food_count': ->
-            Meteor.call 'calc_food_count', ->
+        'click .calc_dish_count': ->
+            Meteor.call 'calc_dish_count', ->
 
         # 'keydown #search': _.throttle((e,t)->
         #     if e.which is 8
@@ -96,18 +96,18 @@ if Meteor.isClient
 
 
         'click .set_sort_direction': ->
-            if Session.get('food_sort_direction') is -1
-                Session.set('food_sort_direction', 1)
+            if Session.get('dish_sort_direction') is -1
+                Session.set('dish_sort_direction', 1)
             else
-                Session.set('food_sort_direction', -1)
+                Session.set('dish_sort_direction', -1)
 
 
-    Template.food.helpers
-        quickbuying_food: ->
+    Template.dishes.helpers
+        quickbuying_dish: ->
             Docs.findOne Session.get('quickbuying_id')
 
         sorting_up: ->
-            parseInt(Session.get('food_sort_direction')) is 1
+            parseInt(Session.get('dish_sort_direction')) is 1
 
         toggle_delivery_class: -> if Session.get('view_delivery') then 'blue' else ''
         toggle_pickup_class: -> if Session.get('view_pickup') then 'blue' else ''
@@ -125,10 +125,10 @@ if Meteor.isClient
             # if Session.get('current_query') and Session.get('current_query').length > 1
             #     Terms.find({}, sort:count:-1)
             # else
-            food_count = Docs.find().count()
-            # console.log 'food count', food_count
-            if food_count < 3
-                Tags.find({count: $lt: food_count})
+            dish_count = Docs.find().count()
+            # console.log 'dish count', dish_count
+            if dish_count < 3
+                Tags.find({count: $lt: dish_count})
             else
                 Tags.find()
 
@@ -136,10 +136,10 @@ if Meteor.isClient
             # if Session.get('current_query') and Session.get('current_query').length > 1
             #     Terms.find({}, sort:count:-1)
             # else
-            food_count = Docs.find().count()
-            # console.log 'food count', food_count
-            if food_count < 3
-                Ingredients.find({count: $lt: food_count})
+            dish_count = Docs.find().count()
+            # console.log 'dish count', dish_count
+            if dish_count < 3
+                Ingredients.find({count: $lt: dish_count})
             else
                 Ingredients.find()
 
@@ -155,13 +155,13 @@ if Meteor.isClient
 
         one_post: ->
             Docs.find().count() is 1
-        food: ->
+        dish: ->
             # if selected_ingredients.array().length > 0
             Docs.find {
                 model:'menu_item'
             },
-                sort: "#{Session.get('food_sort_key')}":parseInt(Session.get('food_sort_direction'))
-                limit:Session.get('food_limit')
+                sort: "#{Session.get('dish_sort_key')}":parseInt(Session.get('dish_sort_direction'))
+                limit:Session.get('dish_limit')
 
         home_subs_ready: ->
             Template.instance().subscriptionsReady()
@@ -181,28 +181,28 @@ if Meteor.isClient
                 sort: count:-1
                 # limit:1
 
-        food_limit: ->
-            Session.get('food_limit')
+        dish_limit: ->
+            Session.get('dish_limit')
 
-        current_food_sort_label: ->
-            Session.get('food_sort_label')
+        current_dish_sort_label: ->
+            Session.get('dish_sort_label')
 
 
-    # Template.set_food_limit.events
+    # Template.set_dish_limit.events
     #     'click .set_limit': ->
     #         console.log @
-    #         Session.set('food_limit', @amount)
+    #         Session.set('dish_limit', @amount)
 
-    Template.set_food_sort_key.events
+    Template.set_dish_sort_key.events
         'click .set_sort': ->
             console.log @
-            Session.set('food_sort_key', @key)
-            Session.set('food_sort_label', @label)
+            Session.set('dish_sort_key', @key)
+            Session.set('dish_sort_label', @label)
 
 
 
 if Meteor.isServer
-    Meteor.publish 'food_results', (
+    Meteor.publish 'dish_results', (
         selected_ingredients
         doc_limit
         doc_sort_key
@@ -249,7 +249,7 @@ if Meteor.isServer
         #         match["#{key}"] = $all: key_array
             # console.log 'current facet filter array', current_facet_filter_array
 
-        console.log 'food match', match
+        console.log 'dish match', match
         console.log 'sort key', sort_key
         console.log 'sort direction', sort_direction
         Docs.find match,
@@ -257,7 +257,7 @@ if Meteor.isServer
             # sort:_timestamp:-1
             limit: limit
 
-    Meteor.publish 'food_facets', (
+    Meteor.publish 'dish_facets', (
         selected_ingredients
         selected_timestamp_tags
         query

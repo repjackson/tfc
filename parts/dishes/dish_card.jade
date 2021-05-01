@@ -1,9 +1,9 @@
-template(name='food_card')
-    .ui.card(class=food_card_class)
+template(name='dish_card')
+    .ui.card(class=dish_card_class)
         .image
-            img.ui.zoom.pointer.goto_food.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+            img.ui.zoom.pointer.goto_dish.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content
-            a.ui.header(href="/food/#{_id}") 
+            a.ui.header(href="/dish/#{_id}") 
                 //- |#{_author.name}'s
                 | #{title}
             //- if session_is 'view_ingredients' true
@@ -15,12 +15,7 @@ template(name='food_card')
             .right.floated.meta
                 | {{from_now datetime_available}}
             //- if session_is 'view_users' true
-            a(href="/user/#{cook.username}")
-                img.ui.avatar.image(src="{{c.url cook.image_id width=400 height=600 crop='fit'}}")
-                |#{cook.username}
-                i.yellow.star.icon
-                |3.4
-        //- a.image(href="/food/#{_id}")
+        //- a.image(href="/dish/#{_id}")
             
         .content    
             .ui.inline.header
@@ -41,7 +36,7 @@ template(name='food_card')
                         |serving
             div
             if delivery
-                +i name='deliver-food' cl='ui avatar image'
+                +i name='deliver-dish' cl='ui avatar image'
                 if delivery_fee
                     .ui.inline.header(title='delivery fee') $#{delivery_fee}
             //- if open

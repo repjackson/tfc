@@ -1,8 +1,8 @@
-template(name='food')
+template(name='dishes')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             if currentUser
-                a.ui.icon.basic.circular.button.add_food(title='cook')
+                a.ui.icon.basic.circular.button.add_dish(title='cook')
                     i.plus.green.large.icon
             
             .ui.left.icon.search.small.input
@@ -21,7 +21,7 @@ template(name='food')
             .spacer
             +i name='ingredients' cl='ui inline mini image'
             .ui.circular.compact.button.toggle_delivery(class=toggle_delivery_class)
-                +i name='deliver-food' cl='ui inline avatar image' 
+                +i name='deliver-dish' cl='ui inline avatar image' 
                 |delivery
             .ui.circular.compact.button.toggle_pickup(class=toggle_pickup_class)
                 +i name='doormat' cl='ui inline avatar image'
@@ -59,13 +59,13 @@ template(name='food')
             //-     |sort by
             //-     .ui.compact.small.menu
             //-         .ui.simple.dropdown.item
-            //-             strong #{current_food_sort_label}
+            //-             strong #{current_dish_sort_label}
             //-             i.dropdown.icon
             //-             .menu
-            //-                 +set_food_sort_key key='price_per_serving' label='$/serving' icon='money'
-            //-                 +set_food_sort_key key='datetime_available' label='available' icon='clock'
-            //-                 //- +set_food_sort_key key='_timestamp' label='added' icon='clock'
-            //-                 +set_food_sort_key key='comment_count' label='comment count' icon='chat'
+            //-                 +set_dish_sort_key key='price_per_serving' label='$/serving' icon='money'
+            //-                 +set_dish_sort_key key='datetime_available' label='available' icon='clock'
+            //-                 //- +set_dish_sort_key key='_timestamp' label='added' icon='clock'
+            //-                 +set_dish_sort_key key='comment_count' label='comment count' icon='chat'
             //-     .ui.compact.icon.circular.button.set_sort_direction(title='toggle sort direction')
             //-         if sorting_up
             //-             i.sort.amount.down.icon
@@ -77,17 +77,17 @@ template(name='food')
             //-     //-     |show
             //-     //- .ui.compact.menu
             //-     //-     .ui.simple.dropdown.item
-            //-     //-         strong #{food_limit}
+            //-     //-         strong #{dish_limit}
             //-     //-         i.dropdown.icon
             //-     //-         .menu
-            //-     //-             +set_food_limit amount=1
-            //-     //-             +set_food_limit amount=5
-            //-     //-             +set_food_limit amount=10
-            //-     //-             +set_food_limit amount=20
+            //-     //-             +set_dish_limit amount=1
+            //-     //-             +set_dish_limit amount=5
+            //-     //-             +set_dish_limit amount=10
+            //-     //-             +set_dish_limit amount=20
             //- .spacer 
             .ui.stackable.four.cards
-                each food
-                    +food_card
+                each dish_docs
+                    +dish_card
 
 
 
@@ -95,7 +95,7 @@ template(name='food')
 
 
         
-template(name='set_food_sort_key')
+template(name='set_dish_sort_key')
     .item.set_sort
         if color
             .ui.label(class=color) #{label}
@@ -107,11 +107,11 @@ template(name='set_food_sort_key')
             |#{label}
         
 
-template(name='set_view_mode_food')
+template(name='set_view_mode_dish')
     .item.set_view
         i.icon(class=icon)
         |#{title}
 
 
-template(name='set_food_limit')
+template(name='set_dish_limit')
     .item.set_limit #{amount}

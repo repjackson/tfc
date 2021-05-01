@@ -2,34 +2,38 @@ template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
-                .twelve.wide.column
-                    .ui.segment
-                        a.ui.center.aligned.header(href="/food")
-                            +i name='food' cl='ui avatar image'
-                            |specials
-                        .ui.selection.animated.list
-                            each special_docs
-                                a.item(href="/food/#{_id}")
-                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                    |#{title}
-                .four.wide.column
-                    .ui.segment
-                        a.ui.center.aligned.header(href="/food")
-                            +i name='food' cl='ui avatar image'
-                            |french word of the day
+                // .twelve.wide.column
+                //     .ui.segment
+                //         a.ui.center.aligned.header(href="/dishes")
+                //             +i name='food' cl='ui avatar image'
+                //             |specials
+                //         .ui.selection.animated.list
+                //             each special_docs
+                //                 a.item(href="/dish/#{_id}")
+                //                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                //                     |#{title}
+                // .four.wide.column
+                //     .ui.segment
+                //         a.ui.center.aligned.header(href="/dishes")
+                //             +i name='food' cl='ui avatar image'
+                //             |french word of the day
                 .eight.wide.column
                     .ui.segment
-                        a.ui.center.aligned.header(href="/food")
+                        a.ui.center.aligned.header(href="/dishes")
                             +i name='food' cl='ui avatar image'
                             |menu
+                        .ui.small.header 
+                            |sections
                         .ui.selection.animated.list
-                            each food_sections
+                            each menu_sections
                                 a.item(href="/food_section/#{_id}")
                                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                                     |#{title}
-                        .ui.selection.animated.list
-                            each top_food
-                                a.item(href="/food/#{_id}")
+                        .ui.small.header 
+                            |menu items
+                        .ui.selection.animated.small.list
+                            each model_docs 'dish'
+                                a.item(href="/dish/#{_id}")
                                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                                     |#{title}
                 .eight.wide.column

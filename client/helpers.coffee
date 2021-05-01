@@ -5,8 +5,9 @@ Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'parent_doc', () ->
     Docs.findOne @parent_id
     # Template.parentData()
-Template.registerHelper 'rental', () ->
-    Docs.findOne @rental_id
+Template.registerHelper 'model_docs', (model) ->
+    Docs.find 
+        model:model
     # Template.parentData()
 
 Template.registerHelper 'active_path', (metric) ->
@@ -294,8 +295,6 @@ Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles t
 Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
 Template.registerHelper 'user_is_admin', () -> if @roles and 'admin' in @roles then true else false
 Template.registerHelper 'user_is_member', () -> if @roles and 'member' in @roles then true else false
-Template.registerHelper 'user_is_handler', () -> if @roles and 'handler' in @roles then true else false
-Template.registerHelper 'user_is_resident_or_owner', () -> if @roles and _.intersection(@roles,['resident','owner']) then true else false
 
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() in ['ytjpFxiwnWaJELZEd','rDqxdcTBTszjeMh9T'] then true else false
 

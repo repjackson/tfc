@@ -1,16 +1,16 @@
 if Meteor.isClient
-    Router.route '/food/:doc_id/edit', (->
+    Router.route '/dish/:doc_id/edit', (->
         @layout 'layout'
-        @render 'food_edit'
-        ), name:'food_edit'
+        @render 'dish_edit'
+        ), name:'dish_edit'
 
 
 
-    Template.food_edit.onCreated ->
+    Template.dish_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'dish'
 
-    Template.food_edit.onRendered ->
+    Template.dish_edit.onRendered ->
         Meteor.setTimeout ->
             today = new Date()
             $('#availability')
@@ -21,14 +21,14 @@ if Meteor.isClient
                 })
         , 2000
 
-    Template.food_edit.helpers
+    Template.dish_edit.helpers
         all_dishes: ->
             Docs.find
                 model:'dish'
         can_delete: ->
-            food = Docs.findOne Router.current().params.doc_id
-            if food.reservation_ids
-                if food.reservation_ids.length > 1
+            dish = Docs.findOne Router.current().params.doc_id
+            if dish.reservation_ids
+                if dish.reservation_ids.length > 1
                     false
                 else
                     true
@@ -36,11 +36,11 @@ if Meteor.isClient
                 true
 
 
-    Template.food_edit.events
-        'click .save_food': ->
-            food_id = Router.current().params.doc_id
-            Meteor.call 'calc_food_data', food_id, ->
-            Router.go "/food/#{food_id}"
+    Template.dish_edit.events
+        'click .save_dish': ->
+            dish_id = Router.current().params.doc_id
+            Meteor.call 'calc_dish_data', dish_id, ->
+            Router.go "/dish/#{dish_id}"
 
 
         'click .save_availability': ->
@@ -72,7 +72,7 @@ if Meteor.isClient
 
 
 
-        'click .delete_food': ->
-            if confirm 'refund orders and cancel food?'
+        'click .delete_dish': ->
+            if confirm 'refund orders and cancel dish?'
                 Docs.remove Router.current().params.doc_id
                 Router.go "/"
