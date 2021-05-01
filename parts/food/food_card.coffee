@@ -18,12 +18,12 @@ if Meteor.isClient
         'click .goto_food': (e,t)->
             # $(e.currentTarget).closest('.card').transition('zoom',200)
             # $('.global_container').transition('scale', 500)
-            Router.go("/food/#{@_id}/view")
+            Router.go("/food/#{@_id}")
             # Meteor.setTimeout =>
             # , 100
 
-        'click .view_card': ->
-            $('.container_')
+        # 'click .view_card': ->
+        #     $('.container_')
 
     Template.food_card.helpers
         food_card_class: ->

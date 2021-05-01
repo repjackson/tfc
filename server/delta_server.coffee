@@ -81,11 +81,11 @@ Meteor.methods
             Docs.find
                 model:'field'
                 parent_id:model._id
-        if model.collection and model.collection is 'users'
-            built_query.roles = $in:[delta.model_filter]
-        else
-            # unless delta.model_filter is 'post'
-            built_query.model = delta.model_filter
+        # if model.collection and model.collection is 'users'
+        #     built_query.roles = $in:[delta.model_filter]
+        # else
+        #     # unless delta.model_filter is 'post'
+        built_query.model = delta.model_filter
 
         # if delta.model_filter is 'model'
         #     unless 'dev' in Meteor.user().roles
@@ -125,16 +125,16 @@ Meteor.methods
             total = Docs.find(built_query).count()
         # console.log 'built query', built_query
         # response
-        for facet in delta.facets
-            values = []
-            local_return = []
+        # for facet in delta.facets
+        #     values = []
+        #     local_return = []
 
-            agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
-            # agg_res = Meteor.call 'agg', built_query, facet.key
+        #     # agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
+        #     # agg_res = Meteor.call 'agg', built_query, facet.key
 
-            if agg_res
-                Docs.update { _id:delta._id, 'facets.key':facet.key},
-                    { $set: 'facets.$.res': agg_res }
+        #     if agg_res
+        #         Docs.update { _id:delta._id, 'facets.key':facet.key},
+                    # { $set: 'facets.$.res': agg_res }
         if delta.sort_key
             # console.log 'found sort key', delta.sort_key
             sort_by = delta.sort_key

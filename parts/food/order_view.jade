@@ -21,9 +21,9 @@ template(name='order_view')
                     
                     .ui.segment 
                         with order_food
-                            a(href="/food/#{_id}/view")
+                            a(href="/food/#{_id}")
                                 img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                            a(href="/food/#{_id}/view")
+                            a(href="/food/#{_id}")
                                 .ui.header #{title}
                             .ui.header food
                             .ui.header #{serving_purchase_price} serving perchase price

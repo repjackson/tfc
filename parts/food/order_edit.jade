@@ -33,8 +33,8 @@ template(name='order_edit')
                         i.remove.icon   
                         | can't cancel  
                 .ui.header delivery method
-                +key_value_edit key='delivery_method' value='delivery' color_icon='deliver-food'
-                +key_value_edit key='delivery_method' value='pickup' color_icon='doormat'
+                +kve key='delivery_method' value='delivery' color_icon='deliver-food'
+                +kve key='delivery_method' value='pickup' color_icon='doormat'
 
                 if key_value_is 'delivery_method' 'delivery'
                     +datetime_edit key='delivery_timedate' label='delivery timedate' direct=true

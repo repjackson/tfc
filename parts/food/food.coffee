@@ -36,7 +36,7 @@ if Meteor.isClient
         'click .add_food': ->
             new_id =
                 Docs.insert
-                    model:'food'
+                    model:'menu_item'
             Router.go("/food/#{new_id}/edit")
 
 
@@ -158,7 +158,7 @@ if Meteor.isClient
         food: ->
             # if selected_ingredients.array().length > 0
             Docs.find {
-                model:'food'
+                model:'menu_item'
             },
                 sort: "#{Session.get('food_sort_key')}":parseInt(Session.get('food_sort_direction'))
                 limit:Session.get('food_limit')
@@ -221,7 +221,7 @@ if Meteor.isServer
         if doc_sort_direction
             sort_direction = parseInt(doc_sort_direction)
         self = @
-        match = {model:'food'}
+        match = {model:'menu_item'}
         if view_open
             match.open = $ne:false
         if view_delivery
@@ -274,10 +274,9 @@ if Meteor.isServer
 
         self = @
         match = {}
-        match.model = 'food'
+        match.model = 'menu_item'
         if view_open
             match.open = $ne:false
-
         if view_delivery
             match.delivery = $ne:false
         if view_pickup

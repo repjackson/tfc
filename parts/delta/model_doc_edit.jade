@@ -18,6 +18,7 @@ template(name='model_doc_edit')
                     .twelve.wide.column
                         //- |#{model}
                         each edit_fields
+                            .ui.header #{title}
                             +Template.dynamic template=edit_template 
                             .spacer
                             // .ui.header #{key} [#{field}] #{label}

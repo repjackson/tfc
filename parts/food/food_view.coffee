@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Router.route '/food/:doc_id/view', (->
+    Router.route '/food/:doc_id', (->
         @layout 'layout'
         @render 'food_view'
         ), name:'food_view'
@@ -103,39 +103,40 @@ if Meteor.isClient
         #     )
 
         'click .order_food': ->
-            if Meteor.user().credit >= @price_per_serving
-                Docs.insert
-                    model:'order'
-                    status:'pending'
-                    complete:false
-                    product_id: Router.current().params.doc_id
+            # if Meteor.user().credit >= @price_per_serving
+            Docs.insert
+                model:'order'
+                status:'pending'
+                complete:false
+                product_id: Router.current().params.doc_id
             #     if @serving_unit
             #         serving_text = @serving_unit
             #     else
             #         serving_text = 'serving'
-            #     Swal.fire({
-            #         title: "confirm buy #{serving_text}"
-            #         text: "this will charge you #{@price_per_serving} credits"
-            #         icon: 'question'
-            #         showCancelButton: true,
-            #         confirmButtonText: 'confirm'
-            #         cancelButtonText: 'cancel'
-            #     }).then((result) =>
-            #         if result.value
-            #             Meteor.call 'order_food', @_id, (err, res)->
-            #                 if err
-            #                     Swal.fire(
-            #                         'err'
-            #                         'error'
-            #                     )
-            #                     console.log err
-            #                 else
-            #                     Swal.fire(
-            #                         'order and payment processed'
-            #                         ''
-            #                         'success'
-            #                     )
-            # )
+            Swal.fire({
+                # title: "confirm buy #{serving_text}"
+                title: "confirm order?"
+                text: "this will charge you #{@price_per_serving} credits"
+                icon: 'question'
+                showCancelButton: true,
+                confirmButtonText: 'confirm'
+                cancelButtonText: 'cancel'
+            }).then((result) =>
+                if result.value
+                    Meteor.call 'order_food', @_id, (err, res)->
+                        if err
+                            Swal.fire(
+                                'err'
+                                'error'
+                            )
+                            console.log err
+                        else
+                            Swal.fire(
+                                'order and payment processed'
+                                ''
+                                'success'
+                            )
+        )
 
 if Meteor.isServer
     Meteor.publish 'orders_from_food_id', (food_id)->

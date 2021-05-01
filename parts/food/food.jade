@@ -19,26 +19,26 @@ template(name='food')
                 button.ui.circular.compact.small.basic.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
                     //- small #{count}
             .spacer
-            //- +i name='ingredients' cl='ui inline mini image'
-            //- .ui.circular.compact.button.toggle_delivery(class=toggle_delivery_class)
-            //-     +i name='deliver-food' cl='ui inline avatar image' 
-            //-     |delivery
-            //- .ui.circular.compact.button.toggle_pickup(class=toggle_pickup_class)
-            //-     +i name='doormat' cl='ui inline avatar image'
-            //-     |pickup
-            //- .ui.circular.compact.button.toggle_open(class=toggle_open_class)
-            //-     +i name='checkmark' cl='ui inline avatar image'
-            //-     |open
-            //- .ui.small.header available
-            //- .ui.circular.compact.small.button
-            //-     +i name='present' cl='ui mini inline image'
-            //-     |now
-            //- .ui.circular.compact.small.button
-            //-     +i name='today' cl='ui mini inline image'
-            //-     |today
-            //- .ui.circular.compact.small.button
-            //-     +i name='date-to' cl='ui mini inline image'
-            //-     |tomorrow
+            +i name='ingredients' cl='ui inline mini image'
+            .ui.circular.compact.button.toggle_delivery(class=toggle_delivery_class)
+                +i name='deliver-food' cl='ui inline avatar image' 
+                |delivery
+            .ui.circular.compact.button.toggle_pickup(class=toggle_pickup_class)
+                +i name='doormat' cl='ui inline avatar image'
+                |pickup
+            .ui.circular.compact.button.toggle_open(class=toggle_open_class)
+                +i name='checkmark' cl='ui inline avatar image'
+                |open
+            .ui.small.inline.header available
+            .ui.circular.compact.small.button
+                +i name='present' cl='ui mini inline image'
+                |now
+            .ui.circular.compact.small.button
+                +i name='today' cl='ui mini inline image'
+                |today
+            .ui.circular.compact.small.button
+                +i name='date-to' cl='ui mini inline image'
+                |tomorrow
 
                 
             if selected_tags

@@ -171,7 +171,7 @@ Template.registerHelper 'edit_fields', () ->
         Docs.find {
             model:'field'
             parent_id:model._id
-            edit_roles:$in:Meteor.user().roles
+            # edit_roles:$in:Meteor.user().roles
         }, sort:rank:1
 
 Template.registerHelper 'sortable_fields', () ->
@@ -209,9 +209,10 @@ Template.registerHelper 'in_list', (key) ->
 
 
 Template.registerHelper 'is_admin', () ->
-    if Meteor.user() and Meteor.user().roles
-        # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
-        if 'admin' in Meteor.user().roles then true else false
+    Meteor.user().username is 'dev'
+    # if Meteor.user() and Meteor.user().roles
+    #     # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
+    #     if 'admin' in Meteor.user().roles then true else false
 Template.registerHelper 'is_current_admin', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','admin'], Meteor.user().roles) then true else false
@@ -307,8 +308,8 @@ Template.registerHelper 'is_current_user', () ->
             true
         else
             false
-Template.registerHelper 'view_template', -> "#{@field_type}_view"
-Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
+Template.registerHelper 'view_template', -> "#{@field_type_slug}_view"
+Template.registerHelper 'edit_template', -> "#{@field_type_slug}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
 
 
