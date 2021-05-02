@@ -66,50 +66,50 @@ Meteor.methods
                     "<br><h4>view your messages here:<a href=#{message_link}>#{message_link}</a>.</h4>"
             })
 
-    order_food: (food_id)->
-        food = Docs.findOne food_id
+    order_dish: (dish_id)->
+        dish = Docs.findOne dish_id
         Docs.insert
             model:'order'
-            food_id: food._id
-            order_price: food.price_per_serving
+            dish_id: dish._id
+            order_price: dish.price_usd
             buyer_id: Meteor.userId()
         Meteor.users.update Meteor.userId(),
-            $inc:credit:-food.price_per_serving
-        Meteor.users.update food.cook_user_id,
-            $inc:credit:food.price_per_serving
-        Meteor.call 'calc_food_data', food_id, ->
+            $inc:credit:-dish.price_usd
+        Meteor.users.update dish.cook_user_id,
+            $inc:credit:dish.price_usd
+        Meteor.call 'calc_dish_data', dish_id, ->
 
-    calc_food_data: (food_id)->
-        food = Docs.findOne food_id
-        console.log food
+    calc_dish_data: (dish_id)->
+        dish = Docs.findOne dish_id
+        console.log dish
         order_count =
             Docs.find(
                 model:'order'
-                food_id:food_id
+                dish_id:dish_id
             ).count()
         console.log 'order count', order_count
-        servings_left = food.servings_amount-order_count
+        servings_left = dish.servings_amount-order_count
         console.log 'servings left', servings_left
 
-        # food_dish =
-        #     Docs.findOne food.dish_id
-        # console.log 'food_dish', food_dish
-        # if food_dish.ingredient_ids
-        #     food_ingredients =
+        # dish_dish =
+        #     Docs.findOne dish.dish_id
+        # console.log 'dish_dish', dish_dish
+        # if dish_dish.ingredient_ids
+        #     dish_ingredients =
         #         Docs.find(
         #             model:'ingredient'
-        #             _id: $in:food_dish.ingredient_ids
+        #             _id: $in:dish_dish.ingredient_ids
         #         ).fetch()
         #
         #     ingredient_titles = []
-        #     for ingredient in food_ingredients
+        #     for ingredient in dish_ingredients
         #         console.log ingredient.title
         #         ingredient_titles.push ingredient.title
-        #     Docs.update food_id,
+        #     Docs.update dish_id,
         #         $set:
         #             ingredient_titles:ingredient_titles
 
-        Docs.update food_id,
+        Docs.update dish_id,
             $set:
                 order_count:order_count
                 servings_left:servings_left

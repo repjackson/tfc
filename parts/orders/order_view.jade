@@ -3,12 +3,12 @@ template(name='order_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.center.aligned.column
-                    a.ui.circular.compact.button(href="/food/#{food_id}/view")
+                    a.ui.circular.compact.button(href="/dish/#{dish_id}/view")
                         i.left.chevron.icon
-                        img.ui.avatar.image(src="{{c.url order_food.image_id width=200 height=200}}")    
-                        |#{order_food.title}
+                        img.ui.avatar.image(src="{{c.url order_dish.image_id width=200 height=200}}")    
+                        |#{order_dish.title}
                 .eight.wide.center.aligned.column
-                    .ui.header view '#{order_food.title}' order
+                    .ui.header view '#{order_dish.title}' order
                 .four.wide.center.aligned.column
                     if can_edit
                         a.ui.large.circular.button(href="/order/#{_id}/edit")
@@ -20,12 +20,12 @@ template(name='order_view')
                     .ui.header order price #{order_price}
                     
                     .ui.segment 
-                        with order_food
-                            a(href="/food/#{_id}")
+                        with order_dish
+                            a(href="/dish/#{_id}")
                                 img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                            a(href="/food/#{_id}")
+                            a(href="/dish/#{_id}")
                                 .ui.header #{title}
-                            .ui.header food
+                            .ui.header dish
                             .ui.header #{serving_purchase_price} serving perchase price
                             //- .ui.header #{cook_tip} cook tip
                             .ui.header $#{order_total_transaction_amount} 
@@ -38,7 +38,7 @@ template(name='order_view')
                     +textarea_view key='description'
                     .ui.small.inline.header {{long_date datetime_available}}
                     .ui.header ingredients
-                    each order_food.ingredients
+                    each order_dish.ingredients
                         .ui.label #{this}
                     .ui.header
                         if pickup

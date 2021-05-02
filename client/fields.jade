@@ -151,7 +151,7 @@ template(name='icon_view')
         //- img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
 template(name='i')
     //- i.icon(class=name)
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
+    img(src="https://img.icons8.com/dusk/48/000000/#{name}.png" class=cl title=title)
     // img(src="https://img.icons8.com/doodle/48/000000/#{name}.png" class=cl title=title)
     //- img.icon8(src="https://img.icons8.com/ios/50/000000/#{name}.png" class=cl title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=cl title=title)
@@ -295,7 +295,7 @@ template(name='textarea_view')
             //- else
             //-     |#{this}     
         //- .spacer       
-        ! {{nl2br field_value}}
+        !{{nl2br field_value}}
 
 template(name='raw_edit')
     .ui.large.form
@@ -655,6 +655,8 @@ template(name='kve')
             //-     i.checkmark.icon
             if label
                 |#{label}
+            else if value
+                |#{value}
             else if key
                 |#{key}
 

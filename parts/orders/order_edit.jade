@@ -5,8 +5,11 @@ template(name='order_edit')
                 .ui.header editing order
                 .ui.header #{title}
                 +array_edit key='tags' 
+                div
                 +float_edit key='serving_purchase_price' label='serving purchase price' direct=true
+                div
                 +float_edit key='cook_tip' label='cook tip' direct=true
+                div
                 .ui.header $#{order_total_transaction_amount} 
                     small total transaction amount
                 .ui.header dish
@@ -17,7 +20,7 @@ template(name='order_edit')
                     each all_dishes
                         .ui.button.select_dish #{title}
             .six.wide.column
-                +image_edit key='image_id'
+                // +image_edit key='image_id'
                 //- img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +textarea_edit key='description' direct=true
             .five.wide.column

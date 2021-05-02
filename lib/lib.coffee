@@ -1,6 +1,5 @@
 @Docs = new Meteor.Collection 'docs'
 @Tags = new Meteor.Collection 'tags'
-@Rental_tags = new Meteor.Collection 'rental_tags'
 
 @Ingredients = new Meteor.Collection 'ingredients'
 
@@ -31,7 +30,7 @@ Docs.before.insert (userId, doc)->
     doc._author_id = Meteor.userId()
     if Meteor.user()
         doc._author_username = Meteor.user().username
-    doc.app = 'goldrun'
+    doc.app = 'lfc'
     # doc.points = 0
     # doc.downvoters = []
     # doc.upvoters = []
@@ -88,10 +87,10 @@ Docs.helpers
             model:'order'
         # else
         #     []
-    order_food: ->
+    order_dish: ->
         Docs.findOne
-            model:'food'
-            _id:@food_id
+            model:'dish'
+            _id:@dish_id
 
     order_total_transaction_amount: ->
         @serving_purchase_price+@cook_tip

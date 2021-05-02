@@ -18,22 +18,8 @@ template(name='dish_card')
         //- a.image(href="/dish/#{_id}")
             
         .content    
-            .ui.inline.header
-                |#{servings_left}/#{servings_amount}
-                small
-                    if serving_unit
-                        |#{serving_unit}s
-                    else 
-                        |servings
-                    | left
             .ui.header 
-                |$#{price_per_serving}
-                small
-                    |/
-                    if serving_unit
-                        |#{serving_unit}
-                    else 
-                        |serving
+                |$#{price_usd}
             div
             if delivery
                 +i name='deliver-dish' cl='ui avatar image'

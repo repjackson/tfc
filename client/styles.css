@@ -2,8 +2,9 @@ body {
     /* font-family: 'Raleway', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
     /* font-family: 'Ubuntu+Mono', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
-    /* font-size: 110% !important; */
+    /*font-family: 'Ubuntu', sans-serif !important;*/
+    font-family: 'Goudy Bookletter 1911', sans-serif !important;
+    font-size: 120% !important; 
     /*line-height: 200% !important;*/
     /* filter: invert(.9) !important;
     background: rgba(0,0,0,.9) !important; */
@@ -661,7 +662,7 @@ input.username_search{
     /* font-family: 'Raleway', sans-serif !important; */
     /* font-family: 'Roboto', sans-serif !important; */
     /* font-family: 'Ubuntu+Mono', sans-serif !important; */
-    font-family: 'Ubuntu', sans-serif !important;
+    font-family: 'Goudy Bookletter 1911', sans-serif !important;
 }
 h1.ui.header{
     /* font-family: 'Ubuntu', sans-serif !important; */
@@ -734,9 +735,9 @@ h1.ui.header{
 } */
 
 
-/* .ui.button.ui.input .ui.large.label {
+.ui.button .ui.input .ui.label {
 	 margin: 0.2em !important;
-} */
+} 
 
 
 .menu > .ui.button{

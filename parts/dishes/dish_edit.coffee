@@ -8,7 +8,8 @@ if Meteor.isClient
 
     Template.dish_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'dish'
+        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs', 'menu_section'
 
     Template.dish_edit.onRendered ->
         Meteor.setTimeout ->

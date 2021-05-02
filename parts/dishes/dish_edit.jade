@@ -9,10 +9,11 @@ template(name='dish_edit')
                 .ui.large.circular.icon.green.button.save_dish(title='save dish')
                     i.checkmark.large.icon   
                 +text_edit key='title' label='title' direct=true
-                +kve key='menu_section' value='appetizers' label='appetizers' direct=true
-                +kve key='menu_section' value='dessert' label='dessert' direct=true
+                each model_docs 'menu_section'
+                    +pick_section
                 +image_edit key='image_id' label='image' direct=true
                 +float_edit key='price_usd' label='$ price' direct=true
+                div
                 +float_edit key='price_franc' label='franc price' direct=true
                 +array_edit key='ingredients' label='ingredients'  direct=true
             .eight.wide.column
@@ -22,3 +23,9 @@ template(name='dish_edit')
                         i.remove.icon   
                         | delete
                 
+
+
+template(name='pick_section')
+    .ui.big.image.label
+        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+        | #{title}

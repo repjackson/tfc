@@ -12,11 +12,7 @@ template(name='dish_view')
                             i.pencil.blue.large.icon
                     img.ui.fluid.rounded.image(src="{{c.url image_id width=400 height=400}}")
                     div
-                    .ui.inline.header 
-                        small available 
-                        |{{from_now datetime_available}}:
                     +textarea_view key='description' direct=true
-                    .ui.small.inline.header {{long_date datetime_available}}
                     .ui.header 
                         +i name='ingredients'
                         |ingredients
@@ -26,8 +22,8 @@ template(name='dish_view')
                     //-     +i name='rules'
                     //-     |rules
                 .column
-                    .ui.header $#{franc_price}/serving
-                    .ui.header $#{usd_price}/serving
+                    .ui.header $#{price_usd}
+                    // .ui.header $#{price_franc}
                     if can_order
                         +order_button
                     .ui.header 
@@ -56,16 +52,13 @@ template(name='dish_view')
 
 
 template(name='order_button')
-    if open
-        if servings_left
-            .ui.green.fluid.large.circular.button.order_dish
-                i.cart.plus.large.icon
-                // |order #{serving_unit}
-                |order
-        else 
-            .ui.grey.header sold out
-            //- .ui.teal.large.fluid.circular.button.join_waitlist
-            //-     i.clock.large.icon
-            //-     |join wait list
-    else 
-        .ui.grey.header closed to new orders
+    // if servings_left
+    .ui.green.fluid.large.circular.button.order_dish
+        i.cart.plus.large.icon
+        // |order #{serving_unit}
+        |order
+    // else 
+    //     .ui.grey.header sold out
+        //- .ui.teal.large.fluid.circular.button.join_waitlist
+        //-     i.clock.large.icon
+        //-     |join wait list
