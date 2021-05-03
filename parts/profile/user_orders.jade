@@ -1,4 +1,5 @@
 template(name='user_orders')
+    .ui.header #{orders.count} orders
     .scrolling
         each orders 
             +profile_order_item
@@ -18,5 +19,7 @@ template(name='profile_order_item')
                 a.ui.button(href="/order/#{_id}/view")
                     |view
                     i.right.chevron.icon
+                if in_dev 
+                    +print_this
                 if is_admin
                     +remove_button

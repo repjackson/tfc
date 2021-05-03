@@ -1,20 +1,12 @@
 if Meteor.isClient
     Router.route '/user/:username', (->
         @layout 'user_layout'
-        @render 'user_food'
+        @render 'user_dashboard'
         ), name:'user_dashboard'
-    Router.route '/user/:username/rentals', (->
+    Router.route '/user/:username/cart', (->
         @layout 'user_layout'
-        @render 'user_rentals'
-        ), name:'user_rentals'
-    Router.route '/user/:username/services', (->
-        @layout 'user_layout'
-        @render 'user_services'
-        ), name:'user_services'
-    Router.route '/user/:username/products', (->
-        @layout 'user_layout'
-        @render 'user_products'
-        ), name:'user_products'
+        @render 'user_cart'
+        ), name:'user_cart'
     Router.route '/user/:username/credit', (->
         @layout 'user_layout'
         @render 'user_credit'
@@ -23,22 +15,6 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_orders'
         ), name:'user_orders'
-    Router.route '/user/:username/messages', (->
-        @layout 'user_layout'
-        @render 'user_messages'
-        ), name:'user_messages'
-    Router.route '/user/:username/groups', (->
-        @layout 'user_layout'
-        @render 'user_groups'
-        ), name:'user_groups'
-    Router.route '/user/:username/notifications', (->
-        @layout 'user_layout'
-        @render 'user_notifications'
-        ), name:'user_notifications'
-    Router.route '/user/:username/food', (->
-        @layout 'user_layout'
-        @render 'user_food'
-        ), name:'user_food'
     Router.route '/user/:username/friends', (->
         @layout 'user_layout'
         @render 'user_friends'

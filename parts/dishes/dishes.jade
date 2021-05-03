@@ -115,3 +115,39 @@ template(name='set_view_mode_dish')
 
 template(name='set_dish_limit')
     .item.set_limit #{amount}
+
+
+
+template(name='dish_card')
+    .ui.card(class=dish_card_class)
+        a.image.zoomer(href="/dish/#{_id}") 
+            img.ui.zoom.pointer.goto_dish.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        .content
+            a.ui.header(href="/dish/#{_id}") 
+                //- |#{_author.name}'s
+                | #{title}
+            //- if session_is 'view_ingredients' true
+            +ismall name='ingredients'
+            each ingredients
+                .ui.small.circular.basic.label #{this}
+        //- .ui.inline.small.header tags
+        .content
+            .right.floated.meta
+                | {{from_now datetime_available}}
+            //- if session_is 'view_users' true
+        //- a.image(href="/dish/#{_id}")
+            
+        .content    
+            .ui.header 
+                |$#{price_usd}
+            div
+            if delivery
+                +i name='deliver-dish' cl='ui avatar image'
+                if delivery_fee
+                    .ui.inline.header(title='delivery fee') $#{delivery_fee}
+            //- if open
+            //-     +i name='checkmark' cl='ui avatar image'
+            //- else 
+            //-     i.ban.icon(title='not open to new orders')
+            if pickup
+                +i name='doormat' cl='ui avatar image'

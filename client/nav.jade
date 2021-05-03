@@ -9,8 +9,6 @@ template(name='nav')
                 img.ui.avatar.image(src="https://www.lefrenchcafeboulder.com/images/logo.svg")
             a.item.zoomer(href='/dishes' class="{{isActivePath '/dishes'}}" title='dishes')
                 +i name='food' cl='ui inline mini image'
-            a.item.zoomer(href='/cart' class="{{isActivePath '/cart'}}" title='cart')
-                +i name='shopping-cart' cl='ui inline mini image'
         // if is_admin
         //     a.item(href='/tasks' class="{{isActivePath '/tasks'}}" title='tasks')
         //         +i name='tasks' cl='ui inline mini image'
@@ -19,6 +17,8 @@ template(name='nav')
         if currentUser
             //- a.icon.item(href="/alerts" class="{{isActivePath '/alerts'}}")
             //-     i.bell.icon
+            a.item.zoomer(href='/user/#{currentUser.username}/credit' class="{{isActivePath '/cart'}}" title='cart')
+                +i name='shopping-cart' cl='ui inline mini image'
             a.item(href="/user/#{currentUser.username}/credit" class="{{isActiveRoute regex='user_credit'}}" title='your credits')
                 .ui.inline.header #{currentUser.credit}f
             a.item(href="/user/#{currentUser.username}" class=user_nav_button_class title=user_nav_button_title)

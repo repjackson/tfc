@@ -3,9 +3,9 @@ template(name='dish_view')
         .ui.stackable.padded.grid
             .two.column.row
                 .column
-                    .ui.large.header 
+                    .ui.large.inline.header 
                         //- small viewing
-                        h1 #{title}
+                        | #{title}
                         //- small dish
                     if can_edit
                         a.ui.large.circular.icon.button(href="/dish/#{_id}/edit")
@@ -22,8 +22,6 @@ template(name='dish_view')
                     //-     +i name='rules'
                     //-     |rules
                 .column
-                    .ui.header $#{price_usd}
-                    // .ui.header $#{price_franc}
                     if can_order
                         +order_button
                     .ui.header 
@@ -39,7 +37,7 @@ template(name='dish_view')
                             div
                             .ui.small.inline.header
                                 | #{when} ({{long_date _timestamp}})
-                            a.ui.compact.circular.button(href="/order/#{_id}/view")
+                            a.ui.compact.circular.button(href="/order/#{_id}")
                                 |view details
                                 i.right.chevron.icon
                             if can_cancel
@@ -56,7 +54,9 @@ template(name='order_button')
     .ui.green.fluid.large.circular.button.order_dish
         i.cart.plus.large.icon
         // |order #{serving_unit}
-        |order
+        small order for
+        strong ${{fixed price_usd}}
+        // strong #{price_franc}f
     // else 
     //     .ui.grey.header sold out
         //- .ui.teal.large.fluid.circular.button.join_waitlist

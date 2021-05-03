@@ -1,24 +1,19 @@
 template(name='order_view')
     with current_doc
         .ui.stackable.padded.grid
-            .row
-                .four.wide.center.aligned.column
-                    a.ui.circular.compact.button(href="/dish/#{dish_id}/view")
-                        i.left.chevron.icon
-                        img.ui.avatar.image(src="{{c.url order_dish.image_id width=200 height=200}}")    
-                        |#{order_dish.title}
-                .eight.wide.center.aligned.column
-                    .ui.header view '#{order_dish.title}' order
-                .four.wide.center.aligned.column
-                    if can_edit
-                        a.ui.large.circular.button(href="/order/#{_id}/edit")
-                            i.pencil.icon
-                            |edit
             .three.column.row
+                a.ui.circular.compact.button(href="/dish/#{dish_id}")
+                    i.left.chevron.icon
+                    img.ui.avatar.image(src="{{c.url order_dish.image_id width=200 height=200}}")    
+                    |#{order_dish.title}
+                .ui.header view '#{order_dish.title}' order
+                if can_edit
+                    a.ui.large.circular.button(href="/order/#{_id}/edit")
+                        i.pencil.icon
+                        |edit
                 .column
                     .ui.header ordered #{when}
                     .ui.header order price #{order_price}
-                    
                     .ui.segment 
                         with order_dish
                             a(href="/dish/#{_id}")
@@ -26,7 +21,7 @@ template(name='order_view')
                             a(href="/dish/#{_id}")
                                 .ui.header #{title}
                             .ui.header dish
-                            .ui.header #{serving_purchase_price} serving perchase price
+                            .ui.header #{order_price} perchase price
                             //- .ui.header #{cook_tip} cook tip
                             .ui.header $#{order_total_transaction_amount} 
                                 small total transaction amount
@@ -40,19 +35,12 @@ template(name='order_view')
                     .ui.header ingredients
                     each order_dish.ingredients
                         .ui.label #{this}
-                    .ui.header
-                        if pickup
-                            i.checkmark.icon
-                        else 
-                            |no
-                        |pickup
-                    .ui.header 
-                        if delivery
-                            i.checkmark.icon
-                        else 
-                            |no
-                        |delivery
-                    .ui.header #{servings_left} servings left
+                    if pickup
+                        .ui.header
+                            |pickup
+                    else if delivery
+                        .ui.header 
+                            |delivery
                     if can_edit
                         .ui.small.compact.button.cancel_order
                             i.remove.icon
@@ -61,8 +49,5 @@ template(name='order_view')
                     +comments
                 .column
                     .ui.header buyer #{_author_username}
-                    with _author
-                        +user_card
-                    .ui.header seller #{_author_username}
-                    with _author
+                    with buyer
                         +user_card

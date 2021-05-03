@@ -767,7 +767,7 @@ template(name='float_edit')
             |#{key}
     //- +clear_value  
     .ui.input            
-        input.edit_float(type='number' class=cl min=min step=step value=field_value placeholder=placeholder autocomplete="off")
+        input.edit_float(type='number' class=cl min='0' step='.01' value=field_value placeholder=placeholder autocomplete="off")
             
             
 template(name='phone_edit')
