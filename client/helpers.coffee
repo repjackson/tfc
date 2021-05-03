@@ -289,12 +289,6 @@ Template.registerHelper 'is_staff_or_manager', () ->
 
 
 
-Template.registerHelper 'user_is_resident', () -> if @roles and 'resident' in @roles then true else false
-Template.registerHelper 'user_is_owner', () -> if @roles and 'owner' in @roles then true else false
-Template.registerHelper 'user_is_staff', () -> if @roles and 'staff' in @roles then true else false
-Template.registerHelper 'user_is_admin', () -> if @roles and 'admin' in @roles then true else false
-Template.registerHelper 'user_is_member', () -> if @roles and 'member' in @roles then true else false
-
 Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() in ['ytjpFxiwnWaJELZEd','rDqxdcTBTszjeMh9T'] then true else false
 
 Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
@@ -310,7 +304,10 @@ Template.registerHelper 'view_template', -> "#{@field_type_slug}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type_slug}_edit"
 Template.registerHelper 'is_model', -> @model is 'model'
 
-
+Template.registerHelper 'order_dish', ->
+    Docs.findOne 
+        model:'dish'
+        _id:@dish_id
 # Template.body.events
 #     'click .toggle_sidebar': -> $('.ui.sidebar').sidebar('toggle')
 

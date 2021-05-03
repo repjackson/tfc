@@ -87,10 +87,10 @@ Docs.helpers
             model:'order'
         # else
         #     []
-    order_dish: ->
-        Docs.findOne
-            model:'dish'
-            _id:@dish_id
+    # order_dish: ->
+    #     Docs.findOne
+    #         model:'dish'
+    #         _id:@dish_id
 
     order_total_transaction_amount: ->
         @serving_purchase_price+@cook_tip

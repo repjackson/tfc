@@ -112,7 +112,7 @@ if Meteor.isClient
                 model:'order'
                 status:'pending'
                 complete:false
-                product_id: Router.current().params.doc_id
+                dish_id: Router.current().params.doc_id
             #     if @serving_unit
             #         serving_text = @serving_unit
             #     else
