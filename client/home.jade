@@ -5,7 +5,7 @@ template(name='home')
                 // .twelve.wide.column
                 //     .ui.segment
                 //         a.ui.center.aligned.header(href="/dishes")
-                //             +i name='food' cl='ui avatar image'
+                //             +i name='food' cl='ui tiny inline image'
                 //             |specials
                 //         .ui.selection.animated.list
                 //             each special_docs
@@ -15,20 +15,22 @@ template(name='home')
                 // .four.wide.column
                 //     .ui.segment
                 //         a.ui.center.aligned.header(href="/dishes")
-                //             +i name='food' cl='ui avatar image'
+                //             +i name='food' cl='ui tiny inline image'
                 //             |french word of the day
+                .sixteen.wide.column
+                    a.ui.center.aligned.header(href="/dishes")
+                        +i name='food' cl='ui tiny inline image'
+                        |menu
+                        |sections
+                    .ui.centered.stackable.five.cards
+                        each menu_sections
+                            a.card(href="/food_section/#{_id}")
+                                img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .header 
+                                        |#{title}
                 .eight.wide.column
                     .ui.segment
-                        a.ui.center.aligned.header(href="/dishes")
-                            +i name='food' cl='ui avatar image'
-                            |menu
-                        .ui.small.header 
-                            |sections
-                        .ui.selection.animated.list
-                            each menu_sections
-                                a.item(href="/food_section/#{_id}")
-                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                    |#{title}
                         .ui.small.header 
                             |menu items
                         .ui.selection.animated.small.list
@@ -39,7 +41,7 @@ template(name='home')
                 .eight.wide.column
                     .ui.segment
                         a.ui.center.aligned.header(href="/orders")
-                            +i name='clock' cl='ui avatar image'
+                            +i name='clock' cl='ui tiny inline image'
                             | orders
                         .ui.selection.animated.list
                             each latest_orders
@@ -49,7 +51,7 @@ template(name='home')
                 .eight.wide.column
                     .ui.segment
                         a.ui.center.aligned.header(href="/users")
-                            +i name='groups' cl='ui avatar image'
+                            +i name='groups' cl='ui tiny inline image'
                             |users
                         .ui.selection.animated.list
                             each dashboard_users

@@ -12,7 +12,6 @@ template(name='dish_view')
                             i.pencil.blue.large.icon
                     img.ui.fluid.rounded.image(src="{{c.url image_id width=400 height=400}}")
                     div
-                    +textarea_view key='description' direct=true
                     .ui.header 
                         +i name='ingredients'
                         |ingredients
@@ -24,6 +23,7 @@ template(name='dish_view')
                 .column
                     if can_order
                         +order_button
+                    +textarea_view key='description' direct=true
                     .ui.header 
                         +i name='order-history'
                         |orders
@@ -37,13 +37,12 @@ template(name='dish_view')
                             div
                             .ui.small.inline.header
                                 | #{when} ({{long_date _timestamp}})
-                            a.ui.compact.circular.button(href="/order/#{_id}")
-                                |view details
-                                i.right.chevron.icon
+                            a.ui.compact.big.circular.icon.button(href="/order/#{_id}")
+                                i.right.chevron.large.icon
                             if can_cancel
-                                .ui.small.compact.button.cancel_order
+                                .ui.small.compact.icon.circular.button.cancel_order(title='cancel')
                                     i.remove.red.icon
-                                    |cancel
+                                    // |cancel
                     .ui.hidden.divider
                     +comments
                     

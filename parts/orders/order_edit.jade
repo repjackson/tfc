@@ -2,13 +2,11 @@ template(name='order_edit')
     with current_doc
         .ui.stackable.padded.grid
             .five.wide.column
-                .ui.header editing order
-                .ui.header #{title}
+                .ui.small.inline.header editing order
+                .ui.header #{order_dish.title}
                 +array_edit key='tags' 
                 div
                 +float_edit key='serving_purchase_price' label='serving purchase price' direct=true
-                div
-                +float_edit key='cook_tip' label='cook tip' direct=true
                 div
                 .ui.header $#{order_total_transaction_amount} 
                     small total transaction amount
@@ -30,14 +28,14 @@ template(name='order_edit')
                 if can_delete
                     .ui.red.button.delete_order
                         i.remove.icon   
-                        |cancel and delete
+                        |cancel & delete
                 else  
                     .ui.red.disabled.button(title='existing reservations')
                         i.remove.icon   
                         | can't cancel  
                 .ui.header delivery method
-                +kve key='delivery_method' value='delivery' color_icon='deliver-food'
-                +kve key='delivery_method' value='pickup' color_icon='doormat'
+                +kve key='delivery_method' value='delivery' color_icon='deliver-food' direct=true
+                +kve key='delivery_method' value='pickup' color_icon='doormat' direct=true
 
                 if key_value_is 'delivery_method' 'delivery'
                     +datetime_edit key='delivery_timedate' label='delivery timedate' direct=true

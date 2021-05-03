@@ -74,8 +74,12 @@ if Meteor.isClient
                 @cook_user_id isnt Meteor.userId()
 
         dish_order_class: ->
-            if @waitlist then 'blue' else 'green'
-
+            if @status is 'ready'
+                'green'
+            else if @status is 'pending'
+                'yellow'
+                
+                
     Template.order_button.onCreated ->
 
     Template.order_button.helpers
@@ -116,7 +120,7 @@ if Meteor.isClient
             Swal.fire({
                 # title: "confirm buy #{serving_text}"
                 title: "confirm order?"
-                text: "this will charge you #{@price_per_serving} credits"
+                text: "this will charge you #{@price_usd}"
                 icon: 'question'
                 showCancelButton: true,
                 confirmButtonText: 'confirm'
