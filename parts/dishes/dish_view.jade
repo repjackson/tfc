@@ -26,6 +26,7 @@ template(name='dish_view')
                     +textarea_view key='description' direct=true
                     .ui.header 
                         +i name='order-history'
+                        |#{dish_orders.count}
                         |orders
                     each dish_orders
                         .ui.segment(class=dish_order_class)
@@ -35,6 +36,8 @@ template(name='dish_view')
                                     img.ui.avatar.image(src="{{c.url _author.image_id width=100 height=100 gravity='face' crop='fill'}}")
                                 |#{_author.username}
                             div
+                            .ui.small.inline.header
+                                |status: #{status}
                             .ui.small.inline.header
                                 | #{when} ({{long_date _timestamp}})
                             a.ui.compact.big.circular.icon.button(href="/order/#{_id}")

@@ -13,12 +13,21 @@ template(name='order_view')
                     if can_edit
                         a.ui.large.circular.icon.button(href="/order/#{_id}/edit" title='edit')
                             i.pencil.icon
+                    .ui.header buyer #{_author_username}
+                    .ui.header status: #{status}
+                    if is_admin
+                        .ui.button mark in progress
+                        .ui.button mark ready
+                    with buyer
+                        +user_card
                 .column
-                    .ui.header 
-                        small ordered
-                        strong #{when}
-                        small for 
-                        strong ${{fixed order_price}}
+                    .ui.large.bulleted.list
+                        .item
+                            small ordered
+                            strong #{when}
+                        .item
+                            small for 
+                            strong ${{fixed order_price}}
                     .ui.segment 
                         with order_dish
                             a(href="/dish/#{_id}")
@@ -49,7 +58,3 @@ template(name='order_view')
                             |cancel
                     .ui.hidden.divider
                     +comments
-                .column
-                    .ui.header buyer #{_author_username}
-                    with buyer
-                        +user_card

@@ -22,7 +22,7 @@ template(name='order_edit')
                 //- img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +textarea_edit key='description' direct=true
             .five.wide.column
-                a.ui.large.fluid.green.button(href="/order/#{_id}/view")
+                a.ui.large.fluid.green.button(href="/order/#{_id}")
                     i.checkmark.icon   
                     |save     
                 if can_delete
