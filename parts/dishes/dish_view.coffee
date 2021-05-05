@@ -46,7 +46,7 @@ if Meteor.isClient
                         'refund processed',
                         ''
                         'success'
-                    Meteor.call 'calc_dish_data', dish._id
+                    Meteor.call 'calc_dish_data', dish._id, ->
                     Docs.remove @_id
                     )
             )

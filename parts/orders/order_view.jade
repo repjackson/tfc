@@ -3,7 +3,7 @@ template(name='order_view')
         .ui.stackable.padded.grid
             .three.column.row
                 .column
-                    a.ui.circular.compact.button(href="/dish/#{dish_id}")
+                    a.ui.compact.button(href="/dish/#{dish_id}")
                         i.left.chevron.icon
                         img.ui.avatar.image(src="{{c.url order_dish.image_id width=200 height=200}}")    
                         |#{order_dish.title}
@@ -11,13 +11,24 @@ template(name='order_view')
                         strong '#{order_dish.title}'
                         small order
                     if can_edit
-                        a.ui.large.circular.icon.button(href="/order/#{_id}/edit" title='edit')
+                        a.ui.large.icon.button(href="/order/#{_id}/edit" title='edit')
                             i.pencil.icon
                     .ui.header buyer #{_author_username}
                     .ui.header status: #{status}
+                    .ui.header 
+                        i.shield.icon
+                        |admin
                     if is_admin
-                        .ui.button mark in progress
-                        .ui.button mark ready
+                        .ui.button.mark_started mark started
+                        .ui.button.mark_ready mark ready
+                        .ui.button.mark_picked_up mark picked up
+                    .ui.header 
+                        i.user.outline.icon
+                        |customer
+                    .ui.button.mark_picked_up mark picked up
+                    .ui.button.cancel 
+                        i.remove.icon
+                        |cancel
                     with buyer
                         +user_card
                 .column
@@ -25,6 +36,7 @@ template(name='order_view')
                         .item
                             small ordered
                             strong #{when}
+                            |({{long_date _timestamp}})
                         .item
                             small for 
                             strong ${{fixed order_price}}
@@ -42,8 +54,8 @@ template(name='order_view')
                 .column
                     // |{{from_now datetime_available}}:
                     // +textarea_view key='description'
-                    .ui.small.inline.header {{long_date datetime_available}}
-                    .ui.header ingredients
+                    div
+                    .ui.inline.header ingredients
                     each order_dish.ingredients
                         .ui.label #{this}
                     if pickup

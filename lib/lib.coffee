@@ -80,18 +80,6 @@ Docs.helpers
             Meteor.users.findOne @to_user_id
 
 
-    food_orders: ->
-        # if @order_ids
-        Docs.find
-            food_id:@_id
-            model:'order'
-        # else
-        #     []
-    # order_dish: ->
-    #     Docs.findOne
-    #         model:'dish'
-    #         _id:@dish_id
-
     order_total_transaction_amount: ->
         @serving_purchase_price+@cook_tip
 

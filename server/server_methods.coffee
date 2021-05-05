@@ -71,6 +71,7 @@ Meteor.methods
         Docs.insert
             model:'order'
             dish_id: dish._id
+            status:'pending'
             order_price: dish.price_usd
             buyer_id: Meteor.userId()
         Meteor.users.update Meteor.userId(),

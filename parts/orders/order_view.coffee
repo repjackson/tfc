@@ -13,9 +13,16 @@ if Meteor.isClient
 
 
     Template.order_view.events
+        'click .mark_ready': ->
+            if confirm 'mark ready?'
+                Docs.insert 
+                    model:'order_event'
+                    order_id: Router.current().params.doc_id
+                    order_status:'ready'
         'click .cancel_order': ->
             if confirm 'cancel?'
                 Docs.remove @_id
+                Router.go "/"
 
 
     Template.order_view.helpers

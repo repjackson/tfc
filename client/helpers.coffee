@@ -15,6 +15,8 @@ Template.registerHelper 'active_path', (metric) ->
 
 Template.registerHelper 'user_from_id', (id)->
     Meteor.users.findOne id
+Template.registerHelper 'kve', (key,value)->
+    @["#{key}"] is value
 Template.registerHelper 'skv_is', (key,value)->
     Session.equals(key,value)
 
@@ -217,10 +219,11 @@ Template.registerHelper 'is_current_admin', () ->
 
 
 Template.registerHelper 'dish_orders', () ->
-    Docs.find 
+    Docs.find {
         model:'order'
         dish_id:@_id
-
+    }, 
+        sort:_timestamp:-1
 Template.registerHelper 'is_current_staff', () ->
     if Meteor.user() and Meteor.user().roles
         # if _.intersection(['dev','staff'], Meteor.user().roles) then true else false
