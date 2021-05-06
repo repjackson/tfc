@@ -108,11 +108,11 @@ if Meteor.isClient
 
         'click .order_dish': ->
             # if Meteor.user().credit >= @price_per_serving
-            Docs.insert
-                model:'order'
-                status:'pending'
-                complete:false
-                dish_id: Router.current().params.doc_id
+            # Docs.insert
+            #     model:'order'
+            #     status:'pending'
+            #     complete:false
+            #     dish_id: Router.current().params.doc_id
             #     if @serving_unit
             #         serving_text = @serving_unit
             #     else

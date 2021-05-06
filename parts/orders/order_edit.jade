@@ -3,7 +3,7 @@ template(name='order_edit')
         .ui.stackable.padded.grid
             .five.wide.column
                 .ui.small.inline.header editing order
-                .ui.header #{order_dish.title}
+                .ui.inline.header #{order_dish.title}
                 +array_edit key='tags' 
                 div
                 +float_edit key='serving_purchase_price' label='serving purchase price' direct=true
@@ -22,17 +22,22 @@ template(name='order_edit')
                 //- img.ui.large.image(src="{{c.url image width=800 height=500 gravity='face' crop='fill'}}")
                 +textarea_edit key='description' direct=true
             .five.wide.column
-                a.ui.large.fluid.green.button(href="/order/#{_id}")
-                    i.checkmark.icon   
-                    |save     
+                unless submitted
+                    a.ui.large.fluid.green.button(href="/order/#{_id}")
+                        |submit     
+                        i.chevron.right.icon   
+                else
+                    a.ui.large.fluid.green.button(href="/order/#{_id}")
+                        i.checkmark.icon   
+                        |save     
                 if can_delete
                     .ui.red.button.delete_order
                         i.remove.icon   
                         |cancel & delete
-                else  
-                    .ui.red.disabled.button(title='existing reservations')
-                        i.remove.icon   
-                        | can't cancel  
+                // else  
+                //     .ui.red.disabled.button(title='existing reservations')
+                //         i.remove.icon   
+                //         | can't cancel  
                 .ui.header delivery method
                 +kve key='delivery_method' value='delivery' color_icon='deliver-food' direct=true
                 +kve key='delivery_method' value='pickup' color_icon='doormat' direct=true
