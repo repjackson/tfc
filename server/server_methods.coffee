@@ -68,7 +68,7 @@ Meteor.methods
 
     order_dish: (dish_id)->
         dish = Docs.findOne dish_id
-        Docs.insert
+        order_id = Docs.insert
             model:'order'
             dish_id: dish._id
             status:'pending'
@@ -79,6 +79,8 @@ Meteor.methods
         Meteor.users.update dish.cook_user_id,
             $inc:credit:dish.price_usd
         Meteor.call 'calc_dish_data', dish_id, ->
+        order_id
+
 
     calc_dish_data: (dish_id)->
         dish = Docs.findOne dish_id

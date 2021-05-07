@@ -233,8 +233,8 @@ template(name='image_view')
         //- if cl
         //-     img(src="{{c.url field_value gravity='face' crop='fit'}}" class=cl)
         //- else 
-        a(href="{{c.url field_value }}" target='_window')
-            img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=currentUser.invert_class)
+        // a(href="{{c.url field_value }}" target='_window')
+        img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=currentUser.invert_class)
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual
@@ -644,7 +644,7 @@ template(name='child_view')
     
         //     +single_doc_edit key='ref_model' ref_model='model' ref_key='slug' label='Referenced model (if ref)'
         //     .ui.divider
-template(name='kve')
+template(name='kvs')
     //- div
     .ui.button.set_value(class="#{kve_class} #{cl}" title=tooltip)
         //- .ui.compact.button.toggle_boolean(class=boolean_toggle_class)

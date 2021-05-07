@@ -40,8 +40,6 @@ if Meteor.isClient
                     dish = Docs.findOne Router.current().params.doc_id
                     Meteor.users.update Meteor.userId(),
                         $inc:credit:@order_price
-                    Meteor.users.update dish.cook_user_id,
-                        $inc:credit:@order_price
                     Swal.fire(
                         'refund processed',
                         ''
@@ -53,6 +51,18 @@ if Meteor.isClient
 
 
     Template.dish_view.helpers
+        dish_order_total: ->
+            orders = 
+                Docs.find({
+                    model:'order'
+                    dish_id:@_id
+                }).fetch()
+            res = 0
+            for order in orders
+                res += order.order_price
+            res
+                
+
         can_cancel: ->
             dish = Docs.findOne Router.current().params.doc_id
             if Meteor.userId() is dish._author_id
@@ -117,30 +127,31 @@ if Meteor.isClient
             #         serving_text = @serving_unit
             #     else
             #         serving_text = 'serving'
-            Swal.fire({
-                # title: "confirm buy #{serving_text}"
-                title: "confirm order?"
-                text: "this will charge you #{@price_usd}"
-                icon: 'question'
-                showCancelButton: true,
-                confirmButtonText: 'confirm'
-                cancelButtonText: 'cancel'
-            }).then((result) =>
-                if result.value
-                    Meteor.call 'order_dish', @_id, (err, res)->
-                        if err
-                            Swal.fire(
-                                'err'
-                                'error'
-                            )
-                            console.log err
-                        else
-                            Swal.fire(
-                                'order and payment processed'
-                                ''
-                                'success'
-                            )
-        )
+            # Swal.fire({
+            #     # title: "confirm buy #{serving_text}"
+            #     title: "confirm order?"
+            #     text: "this will charge you #{@price_usd}"
+            #     icon: 'question'
+            #     showCancelButton: true,
+            #     confirmButtonText: 'confirm'
+            #     cancelButtonText: 'cancel'
+            # }).then((result) =>
+            #     if result.value
+            Meteor.call 'order_dish', @_id, (err, res)->
+                if err
+                    Swal.fire(
+                        'err'
+                        'error'
+                    )
+                    console.log err
+                else
+                    Router.go "/order/#{res}/edit"
+                    # Swal.fire(
+                    #     'order and payment processed'
+                    #     ''
+                    #     'success'
+                    # )
+        # )
 
 if Meteor.isServer
     Meteor.publish 'orders_from_dish_id', (dish_id)->

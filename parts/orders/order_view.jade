@@ -14,22 +14,25 @@ template(name='order_view')
                         a.ui.large.icon.button(href="/order/#{_id}/edit" title='edit')
                             i.pencil.icon
                     .ui.header buyer #{_author_username}
+                    .ui.header 
+                        i.clock.icon
+                        |when #{when}
+                    if kve 'when' 'later'
+                        +datetime_view key='pickup_datetime'
                     .ui.header status: #{status}
                     .ui.header 
                         i.shield.icon
                         |admin
                     if is_admin
-                        .ui.button.mark_started mark started
-                        .ui.button.mark_ready mark ready
-                        .ui.button.mark_picked_up mark picked up
+                        +kvs key='status' value='started' label='mark started' direct=true
+                        if kve status 'started'
+                            +kvs key='status' value='ready' label='mark ready' direct=true
+                            +kvs key='status' value='picked_up' label='picked up' direct=true
                     div
                     .ui.inline.header 
                         i.user.outline.icon
                         |customer
-                    .ui.button.mark_picked_up mark picked up
-                    .ui.button.cancel 
-                        i.remove.icon
-                        |cancel
+                    +kvs key='status' value='picked_up' label='mark picked up' direct=true
                     with buyer
                         +user_card
                 .eight.wide.column
@@ -45,9 +48,7 @@ template(name='order_view')
                         with order_dish
                             a(href="/dish/#{_id}")
                                 img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                            a(href="/dish/#{_id}")
-                                .ui.header #{title}
-                            .ui.header dish
+                            a.ui.header(href="/dish/#{_id}") #{title}
                             //- .ui.header #{cook_tip} cook tip
                             .ui.header $#{order_total_transaction_amount} 
                                 small total transaction amount

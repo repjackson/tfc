@@ -60,10 +60,17 @@ Meteor.publish 'model_docs', (model,limit)->
     if limit
         Docs.find {
             model: model
-        }, limit:limit
+            app:'lfc'
+        }, 
+            limit:limit
     else
-        Docs.find
+        Docs.find {
+            app:'lfc'
             model: model
+        }, sort:_timestamp:-1
+Meteor.publish 'me', ->
+    Meteor.users.find @userId
+
 
 Meteor.publish 'document_by_slug', (slug)->
     Docs.find

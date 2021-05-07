@@ -389,7 +389,7 @@ Template.slug_edit.events
             Docs.update page_doc._id,
                 $set:slug:res
 
-Template.kve.helpers
+Template.kvs.helpers
     kve_class: ->
         if @direct
             parent = Template.parentData()
@@ -398,7 +398,7 @@ Template.kve.helpers
         if parent["#{@key}"] is @value then 'active' else 'basic'
 
 
-Template.kve.events
+Template.kvs.events
     'click .set_value': (e,t)->
         if @direct
             parent = Template.parentData()

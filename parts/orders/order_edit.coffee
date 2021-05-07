@@ -8,7 +8,7 @@ if Meteor.isClient
 
     Template.order_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'dish'
+        @autorun => Meteor.subscribe 'dish_from_order_id', Router.current().params.doc_id 
 
     Template.order_edit.helpers
         all_dishes: ->

@@ -3,12 +3,12 @@ template(name='dishes')
         .sixteen.wide.column
             .ui.inline.header menu
             if currentUser
-                a.ui.icon.basic.circular.button.add_dish(title='cook')
+                a.ui.icon.circular.button.add_dish(title='cook')
                     i.plus.green.large.icon
             
-            // .ui.left.icon.search.small.input
-            //     i.search.icon.refresh_tags
-            //     input#search_ingredient.prompt(type='text' autocomplete="off" placeholder='ingredients')
+            .ui.left.icon.search.small.input
+                i.search.icon.refresh_tags
+                input#search_ingredient.prompt(type='text' autocomplete="off" placeholder='ingredients')
             if selected_ingredient_plural
                 .ui.icon.circular.black.compact.button.clear_selected_ingredients
                     i.remove.icon
@@ -18,7 +18,7 @@ template(name='dishes')
                     | #{this}
             +i name='ingredients' cl='ui inline mini image'
             each ingredients
-                button.ui.circular.compact.small.basic.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
+                button.ui.circular.compact.small.button.ingredient_result(tabindex="0" class=result_class title=count) #{title}
                     //- small #{count}
             // .spacer
             // .ui.circular.compact.button.toggle_delivery(class=toggle_delivery_class)
@@ -86,7 +86,7 @@ template(name='dishes')
             //-     //-             +set_dish_limit amount=10
             //-     //-             +set_dish_limit amount=20
             //- .spacer 
-            .ui.stackable.four.cards
+            .ui.stackable.cards
                 each dish_docs
                     +dish_card
 
@@ -124,23 +124,23 @@ template(name='dish_card')
         a.image.zoomer(href="/dish/#{_id}") 
             img.ui.zoom.pointer.goto_dish.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
         .content
-            a.ui.header(href="/dish/#{_id}") 
+            a.ui.inline.header(href="/dish/#{_id}") 
                 //- |#{_author.name}'s
                 | #{title}
             //- if session_is 'view_ingredients' true
-            +ismall name='ingredients'
+            // +ismall name='ingredients'
             each ingredients
-                .ui.small.circular.basic.label #{this}
+                .ui.small.circular.label #{this}
         //- .ui.inline.small.header tags
-        .content
-            .right.floated.meta
-                | {{from_now datetime_available}}
-            //- if session_is 'view_users' true
-        //- a.image(href="/dish/#{_id}")
+        // .content
+        //     .right.floated.meta
+        //         | {{from_now datetime_available}}
+        //     //- if session_is 'view_users' true
+        // //- a.image(href="/dish/#{_id}")
             
         .content    
             .ui.header 
-                |$#{price_usd}
+                |${{fixed price_usd}}
             div
             if delivery
                 +i name='deliver-dish' cl='ui avatar image'

@@ -30,6 +30,8 @@ if Meteor.isClient
             Session.get('view_delivery')
             Session.get('view_pickup')
             Session.get('view_open')
+            Session.get('dish_query')
+            
 
 
     Template.dishes.events
@@ -55,13 +57,13 @@ if Meteor.isClient
                 # Meteor.call 'search_reddit', selected_ingredients.array(), ->
 
         'click .clear_selected_ingredients': ->
-            Session.set('current_query',null)
+            Session.set('dish_query',null)
             selected_ingredients.clear()
 
         'keyup #search': _.throttle((e,t)->
             query = $('#search').val()
-            Session.set('current_query', query)
-            # console.log Session.get('current_query')
+            Session.set('dish_query', query)
+            # console.log Session.get('dish_query')
             if e.which is 13
                 search = $('#search').val().trim().toLowerCase()
                 if search.length > 0
@@ -69,7 +71,7 @@ if Meteor.isClient
                     console.log 'search', search
                     # Meteor.call 'log_term', search, ->
                     $('#search').val('')
-                    Session.set('current_query', null)
+                    Session.set('dish_query', null)
                     # # $('#search').val('').blur()
                     # # $( "p" ).blur();
                     # Meteor.setTimeout ->
@@ -122,7 +124,7 @@ if Meteor.isClient
                 if Meteor.user().dark_mode
                     'invert'
         tags: ->
-            # if Session.get('current_query') and Session.get('current_query').length > 1
+            # if Session.get('dish_query') and Session.get('dish_query').length > 1
             #     Terms.find({}, sort:count:-1)
             # else
             dish_count = Docs.find().count()
@@ -133,7 +135,7 @@ if Meteor.isClient
                 Tags.find()
 
         ingredients: ->
-            # if Session.get('current_query') and Session.get('current_query').length > 1
+            # if Session.get('dish_query') and Session.get('dish_query').length > 1
             #     Terms.find({}, sort:count:-1)
             # else
             dish_count = Docs.find().count()
@@ -210,6 +212,7 @@ if Meteor.isServer
         view_delivery
         view_pickup
         view_open
+        dish_query
         )->
         # console.log selected_ingredients
         if doc_limit
@@ -221,7 +224,7 @@ if Meteor.isServer
         if doc_sort_direction
             sort_direction = parseInt(doc_sort_direction)
         self = @
-        match = {model:'dish'}
+        match = {model:'dish', app:'lfc'}
         if view_open
             match.open = $ne:false
         if view_delivery
@@ -273,7 +276,7 @@ if Meteor.isServer
         console.log 'selected ingredients', selected_ingredients
 
         self = @
-        match = {}
+        match = {app:'lfc'}
         match.model = 'dish'
         if view_open
             match.open = $ne:false
@@ -282,7 +285,7 @@ if Meteor.isServer
         if view_pickup
             match.pickup = $ne:false
         if selected_ingredients.length > 0 then match.ingredients = $all: selected_ingredients
-            # match.$regex:"#{current_query}", $options: 'i'}
+            # match.$regex:"#{dish_query}", $options: 'i'}
         # if query and query.length > 1
         # #     console.log 'searching query', query
         # #     # match.tags = {$regex:"#{query}", $options: 'i'}
@@ -317,7 +320,7 @@ if Meteor.isServer
         #     { $unwind: "$tags" }
         #     { $group: _id: "$tags", count: $sum: 1 }
         #     { $match: _id: $nin: selected_ingredients }
-        #     # { $match: _id: {$regex:"#{current_query}", $options: 'i'} }
+        #     # { $match: _id: {$regex:"#{dish_query}", $options: 'i'} }
         #     { $sort: count: -1, _id: 1 }
         #     { $limit: 20 }
         #     { $project: _id: 0, name: '$_id', count: 1 }
