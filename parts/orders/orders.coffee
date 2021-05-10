@@ -15,19 +15,11 @@ if Meteor.isClient
     #     Meteor.call 'log_view', @_id, ->
 
     Template.orders.helpers
-        top_food: ->
-            Docs.find
-                model:'food'
-
-        menu_sections: ->
-            Docs.find
-                model:'menu_section'
-
-        # top_services: ->
-        #     Docs.find
-        #         model:'service'
-
         orders: ->
-            Docs.find {
-                model:'order'
-            }, sort: _timestamp:-1
+            match = {model:'order'}
+            if Session.get('order_delivery_filter')
+                match.delivery_method = Session.get('order_sort_filter')
+            if Session.get('order_sort_filter')
+                match.delivery_method = Session.get('order_sort_filter')
+            Docs.find match,
+                sort: _timestamp:-1

@@ -3,6 +3,16 @@ template(name='order_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
+                    .ui.segment 
+                        with order_dish
+                            a(href="/dish/#{_id}")
+                                img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                            a.ui.header(href="/dish/#{_id}") #{title}
+                            //- .ui.header #{cook_tip} cook tip
+                            .ui.header $#{order_total_transaction_amount} 
+                                small total transaction amount
+                    div
+                .eight.wide.column
                     a.ui.compact.button(href="/dish/#{dish_id}")
                         i.left.chevron.icon
                         img.ui.avatar.image(src="{{c.url order_dish.image_id width=200 height=200}}")    
@@ -35,7 +45,9 @@ template(name='order_view')
                     +kvs key='status' value='picked_up' label='mark picked up' direct=true
                     with buyer
                         +user_card
-                .eight.wide.column
+                .four.wide.column
+                    // |{{from_now datetime_available}}:
+                    // +textarea_view key='description'
                     .ui.large.bulleted.list
                         .item
                             small ordered
@@ -44,18 +56,6 @@ template(name='order_view')
                         .item
                             small for 
                             strong ${{fixed order_price}}
-                    .ui.segment 
-                        with order_dish
-                            a(href="/dish/#{_id}")
-                                img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                            a.ui.header(href="/dish/#{_id}") #{title}
-                            //- .ui.header #{cook_tip} cook tip
-                            .ui.header $#{order_total_transaction_amount} 
-                                small total transaction amount
-                    div
-                .four.wide.column
-                    // |{{from_now datetime_available}}:
-                    // +textarea_view key='description'
                     div
                     .ui.inline.header ingredients
                     each order_dish.ingredients

@@ -2,51 +2,45 @@ template(name='orders')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
-                // .twelve.wide.column
-                //     .ui.segment
-                //         a.ui.center.aligned.header(href="/dishes")
-                //             +i name='food' cl='ui tiny inline image'
-                //             |specials
-                //         .ui.selection.animated.list
-                //             each special_docs
-                //                 a.item(href="/dish/#{_id}")
-                //                     img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                //                     |#{title}
-                // .four.wide.column
-                //     .ui.segment
-                //         a.ui.center.aligned.header(href="/dishes")
-                //             +i name='food' cl='ui tiny inline image'
-                //             |french word of the day
-                // .sixteen.wide.column
-                //     .ui.centered.stackable.seven.cards
-                //         each menu_sections
-                //             a.card(href="/food_section/#{_id}")
-                //                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                //                 .content
-                //                     .header 
-                //                         |#{title}
-                .sixteen.wide.column
+                .twelve.wide.column
                     a.ui.center.aligned.header(href="/orders")
                         +i name='clock' cl='ui tiny inline image'
                         | orders
-                    .ui.selection.animated.list.scrolling
-                        each orders
-                            +home_order
-                                    
+                    .ui.button today
+                    .ui.button now
+                    .ui.button later
+                    .ui.button sort order
+                    .ui.button sort by
+                    // .ui.selection.animated.list.scrolling
+                    each orders
+                        +home_order
+                .four.wide.column
+                    |view
+                    +skvs key='order_sort_filter' value='open'               
+                    +skvs key='order_sort_filter' value='now'               
+                    +skvs key='order_sort_filter' value='later'   
+                    +skvs key='order_sort_filter' value=null label='all'
+                    |delivery
+                    +skvs key='order_delivery_filter' value='pickup'   
+                    +skvs key='order_delivery_filter' value='delivery'   
+                    +skvs key='order_delivery_filter' value=null label='all'   
+                    div
+                    |sort by
+                    +skvs key='order_sort_key' value='price'               
             
             
             
 template(name='home_order')
     a.ui.grid(href="/order/#{_id}")
         .row
-            .four.wide.column
+            .four.wide.column.zoomer
                 with order_dish
                     //- img.ui.mini.image(src=image)
                     +image_view key='image_id' direct=true cl='zoomer ui fluid image'
-            .twelve.wide.column
+            .twelve.wide.column.zoomer
                 .ui.header #{order_dish.title}
                 a.ui.small.header.inline.lowercase(href="/order/#{_id}")
-                    |#{order_amount}c
+                    |$#{order_dish.price}
                 .ui.inline.header status: 
                     if kve status 'pending'
                         i.large.yellow.clock.icon

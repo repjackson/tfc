@@ -412,6 +412,21 @@ Template.kvs.events
                 $set:"#{@key}":@value
 
 
+
+Template.skvs.helpers
+    kve_class: ->
+        if Session.equals(@key, @value) then 'active' else 'basic'
+
+
+Template.skvs.events
+    'click .set_value': (e,t)->
+        # $(e.currentTarget).closest('.button').transition('pulse', 100)
+
+        Session.set(@key,@value)
+
+
+
+
 Template.boolean_edit.helpers
     boolean_toggle_class: ->
         if @direct
